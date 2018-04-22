@@ -1,0 +1,5 @@
+<h1>User Show</h1>
+<p>Email: <%=@user.email%></p>
+<p>Name: <%=@user.name%></p>
+<%= image_tag @user.avatar ,width:'300px' if @user.avatar? %>
+<p>Intro: <%=@user.intro%></p>
