@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     end
   end
   resources :posts do
-    resources :comments, only: [:create, :destroy]
+    resources :comments, only: [:create, :edit, :update, :destroy]
   end
 	get "/feeds", to: "feeds#index"
 end

@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: [:destroy]
-  before_action :auth_user, only: [:destroy]
+  before_action :set_comment, only: [:destroy, :edit, :update]
+  before_action :auth_user, only: [:destroy, :edit, :update]
 
 	def create
     @post = Post.find(params[:post_id])
@@ -19,6 +19,18 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     @comment.destroy
     redirect_to post_path(Post.find(params[:post_id])), alert: "刪除成功"
+  end
+
+  def edit
+  	@post = Post.find(params[:post_id])
+  end
+
+  def update
+  	if @comment.update(comment_params)
+      
+    else
+      redirect_to post_path(Post.find(params[:post_id])), alert: "更新失敗"
+    end
   end
 
   private

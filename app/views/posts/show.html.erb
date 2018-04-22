@@ -33,12 +33,13 @@
 		<tr>
 			<td>Comment from: <%= c.user.email %> (<%=time_ago_in_words c.updated_at %>)
 				<% if current_user == c.user %>
+				<%= link_to "Edit", edit_post_comment_path(@post, c), remote: true %>
         <%= link_to "Delete", post_comment_path(@post, c), {method: :delete, data: { confirm: "Are you sure?"}} %>
         <% end %>
 			</td>
 		</tr>
 		<tr>
-			<td><%= c.content %></td>
+			<td id=<%=c.id%>><%= c.content %></td>
 		</tr>
 		<%end%>
 	</tbody>

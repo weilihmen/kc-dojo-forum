@@ -1,0 +1,3 @@
+<% html = j( render :partial => "comment_edit") %>
+var comment_td = $("#<%= @comment.id %>");
+$(comment_td).html("<%= html %>");

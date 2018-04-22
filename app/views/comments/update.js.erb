@@ -1,0 +1,9 @@
+<% html = j( render :partial => "comment") %>
+$("#<%= @comment.id %>").html("<%= html %>");
+var $alert = $("<div class=\"noti-aler-js noti-aler-wrapper notice notice-dismissible\"><button type=\"button\" class=\"close\" data-dismiss=\"notice\" aria-label=\"Close\"><span aria-hidden=\"true\">\&times\;</span></button><p>更新成功</p></div>");
+$('body').append($alert);
+setTimeout(function(){
+  $('.noti-aler-js').fadeOut('slow',function(){
+    $(this).remove();
+  });
+}, 4000);
