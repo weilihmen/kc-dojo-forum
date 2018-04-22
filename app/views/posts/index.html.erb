@@ -10,6 +10,7 @@
 	<thead>
 		<tr>
 			<th>title</th>
+			<th>author</th>
 			<th>created_at</th>
 			<th>action</th>
 		</tr>
@@ -17,10 +18,10 @@
 	<tbody>
     <% @posts.each do |p| %>
 		<tr>
-			<td><%= p.title %></td>
-			<td><%= p.created_at%></td>
+			<td><%= link_to p.title, post_path(p) %></td>
+			<td><%= link_to p.user.name, user_path(p.user) %></td>
+			<td><%= p.created_at.strftime("%Y/%m/%d %H:%M")%></td>
 			<td>
-				<%= link_to 'Show', post_path(p) %>
 				<%= link_to 'Edit', edit_post_path(p) %>
         <%= link_to 'Delete', post_path(p), method: :delete, data: { confirm: "Are you sure?"} %>
       </td>
