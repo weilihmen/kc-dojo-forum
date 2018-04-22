@@ -16,3 +16,30 @@
 		</tr>
 	</tbody>
 </table>
+
+<h3> 留言 </h3>
+
+<%= form_for [@post,@comment] do |f| %>
+<div class="form-group">
+  <%= f.text_area :content, placeholder: "留個言吧", class: "form-control" %>
+  <%= f.submit class: "btn btn-primary" %>
+  <%= f.button "Cancel", type: :reset, class: "btn btn-default" %>
+</div>
+<% end %>
+
+<table class="table table-striped table-bordered">
+	<tbody>
+		<% @post.comments.each do |c| %>
+		<tr>
+			<td>Comment from: <%= c.user.email %> (<%=time_ago_in_words c.updated_at %>)
+				<% if current_user == c.user %>
+        <%= link_to "Delete", post_comment_path(@post, c), {method: :delete, data: { confirm: "Are you sure?"}} %>
+        <% end %>
+			</td>
+		</tr>
+		<tr>
+			<td><%= c.content %></td>
+		</tr>
+		<%end%>
+	</tbody>
+</table>

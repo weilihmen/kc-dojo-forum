@@ -11,6 +11,8 @@ Rails.application.routes.draw do
       get :friend
     end
   end
-  resources :posts
+  resources :posts do
+    resources :comments, only: [:create, :destroy]
+  end
 	get "/feeds", to: "feeds#index"
 end
