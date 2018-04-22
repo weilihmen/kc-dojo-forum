@@ -1,0 +1,2 @@
+<% html = j( link_to "喜歡！", like_post_path(@post), {remote: true, method: :post, class:"btn btn-info btn-xl", id:"unlike-btn"} ) %>
+$("#like-unlike-div").html("<%= html %>");

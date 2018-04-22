@@ -55,13 +55,11 @@ class PostsController < ApplicationController
 
   def like
     @post.likes.create!(user: current_user)
-    redirect_back(fallback_location: root_path)
   end
 
   def unlike
     likes = Like.where(post: @post, user: current_user)
     likes.destroy_all
-    redirect_back(fallback_location: root_path)
   end
 
   private
