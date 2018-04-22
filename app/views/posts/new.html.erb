@@ -1,0 +1,13 @@
+<h1>新增文章</h1>
+
+<% if @post.errors.any? %> 
+	<!-- #好像不能用partial form  -->
+	<ul>
+		<li>錯誤訊息</li>
+		<% @post.errors.full_messages.each do |m| %>
+		<li><%= m %></li>
+		<% end %>
+	</ul>
+<% end %>
+
+<%= render partial:"form" %>

@@ -60,3 +60,5 @@ gem 'bootstrap', '~> 4.1.0'
 gem 'jquery-rails'
 #awesome font
 gem "font-awesome-rails"
+#upload image
+gem 'carrierwave'

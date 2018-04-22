@@ -1,0 +1,19 @@
+<%= form_for  [@post] do |p| %>
+  <div class="form-group">
+    <%= p.label :title, "文章標題" %>
+    <%= p.text_field :title , class: 'form-control'%>
+  </div>
+
+  <div class="form-group">
+    <%= p.label :content, "文章內容" %>
+    <%= p.text_area :content , class: 'form-control'%>  
+  </div>
+
+  <div class="form-group">
+    <%= p.label :image, "上傳照片" %>
+    <%= image_tag @post.image,width:'300px' if @post.image? %>
+    <%= p.file_field :image %>
+  </div>
+
+  <%= p.submit %>
+<% end %>
