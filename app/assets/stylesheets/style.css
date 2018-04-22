@@ -1,0 +1,38 @@
+/*alert-notice: https://www.youtube.com/watch?v=87fBAWc25Sk*/
+.noti-aler-wrapper{
+  position: fixed;
+  height: 56px;
+  top: 0px;
+  width: 100%;
+  z-index: 1031;
+  overflow: hidden;
+  text-align: center;
+  padding: 12px 20px;
+}
+
+.noti-aler-wrapper p{
+  display: inline-block;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: white;
+}
+
+.noti-aler-wrapper button.close{
+  opacity: 1;
+}
+
+.alert{
+  background-color: red;
+  opacity: 0.6;
+}
+
+.notice{
+  background-color: blue;
+  opacity: 0.6;
+}
+
+.notice p{
+  margin-top: 13px;
+}
