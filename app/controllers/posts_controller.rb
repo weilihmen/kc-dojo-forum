@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   skip_before_action :authenticate_user!, :only => [:index]
-  before_action :set_post, only: [:edit, :show, :update, :destroy]
+  before_action :set_post, only: [:edit, :show, :update, :destroy, :like, :unlike]
   before_action :auth_user, only: [:edit, :update, :destroy]
 
 	def index
@@ -52,6 +52,17 @@ class PostsController < ApplicationController
       flash.now[:alert] = "刪除失敗"
     end
 	end
+
+  def like
+    @post.likes.create!(user: current_user)
+    redirect_back(fallback_location: root_path)
+  end
+
+  def unlike
+    likes = Like.where(post: @post, user: current_user)
+    likes.destroy_all
+    redirect_back(fallback_location: root_path)
+  end
 
   private
 
