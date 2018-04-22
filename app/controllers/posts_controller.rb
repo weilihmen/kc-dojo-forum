@@ -1,5 +1,7 @@
 class PostsController < ApplicationController
   skip_before_action :authenticate_user!, :only => [:index]
+  before_action :set_post, only: [:edit, :show, :update, :destroy]
+  before_action :auth_user, only: [:edit, :update, :destroy]
 
 	def index
 		@posts=Post.all
@@ -12,16 +14,16 @@ class PostsController < ApplicationController
 	end
 
   def edit
-    @post=Post.find(params[:id])
     session[:return_to] ||= request.referer
   end
 
   def show
-    @post=Post.find(params[:id])
+
   end
 
 	def create
     @post = Post.new(post_params)
+    @post.user = current_user
     if @post.save
       flash[:notice] = "新增成功"
       redirect_to session.delete(:return_to)
@@ -32,7 +34,6 @@ class PostsController < ApplicationController
   end
 
 	def update
-    @post=Post.find(params[:id])
     if @post.update(post_params)
       flash[:notice] = "更新成功"
       redirect_to session.delete(:return_to)
@@ -43,7 +44,6 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:id])
     if @post.destroy
       flash[:notice] = "刪除成功"
       redirect_back(fallback_location: root_path)
@@ -56,6 +56,17 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:title, :content, :image)
+  end
+
+  def set_post
+    @post = Post.find(params[:id])
+  end
+
+  def auth_user
+    @user = @post.user
+    if @user != current_user
+      redirect_back fallback_location: root_path, alert: "你沒有權限喔！"
+    end
   end
 
 end
