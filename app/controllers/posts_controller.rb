@@ -65,7 +65,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :content, :image, category_ids: [])
+    params.require(:post).permit(:title, :content, :image, :status, category_ids: [])
     #https://stackoverflow.com/questions/4425176/in-rails-how-to-handle-multiple-checked-checkboxes-just-split-on-the-or
   end
 
