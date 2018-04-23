@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   before_action :auth_user, only: [:edit, :update, :destroy]
 
 	def index
-		@posts=Post.all
+		@posts=Post.where.not(status: "pending")
 	end
 
 	def new

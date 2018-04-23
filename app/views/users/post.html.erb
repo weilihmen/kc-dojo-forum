@@ -27,7 +27,7 @@
 		</tr>
 	</thead>
 	<tbody>
-    <% @user.posts.each do |p| %>
+    <% @posts.each do |p| %>
 		<tr>
 			<td><%= link_to p.title, post_path(p) %></td>
 			<td><%= p.created_at.strftime("%Y/%m/%d %H:%M")%></td>

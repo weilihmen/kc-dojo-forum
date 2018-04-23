@@ -1,15 +1,17 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :post, :collect, :draft, :comment, :friend, :collect_dislike]
-  before_action :auth_user, only: [:edit, :update]
+  before_action :auth_user, only: [:edit, :update, :draft]
 
 	def show
     redirect_to post_user_path(@user)
 	end
   def post
+    @posts=@user.posts.where.not(status: "pending")
   end
   def collect
   end
   def draft
+    @posts=@user.posts.where(status: "pending")
   end
   def comment
   end
