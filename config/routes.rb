@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       get :comment
       get :draft
       get :friend
+      post :collect_dislike
     end
   end
   resources :posts do

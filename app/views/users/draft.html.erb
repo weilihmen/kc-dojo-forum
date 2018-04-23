@@ -1,0 +1,19 @@
+<%= render partial:"user" %>
+
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <%= link_to "Post", post_user_path(@user), class: "nav-link"%>
+  </li>
+  <li class="nav-item">
+    <%= link_to "Collect", collect_user_path(@user), class: "nav-link"%>
+  </li>
+  <li class="nav-item">
+    <%= link_to "Draft", draft_user_path(@user), class: "nav-link active"%>
+  </li>
+  <li class="nav-item">
+    <%= link_to "Comment", comment_user_path(@user), class: "nav-link"%>
+  </li>
+  <li class="nav-item">
+    <%= link_to "Friend", friend_user_path(@user), class: "nav-link"%>
+  </li>
+</ul>

@@ -1,10 +1,25 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :set_user, only: [:show, :edit, :update, :post, :collect, :draft, :comment, :friend, :collect_dislike]
   before_action :auth_user, only: [:edit, :update]
 
 	def show
-
+    redirect_to post_user_path(@user)
 	end
+  def post
+  end
+  def collect
+  end
+  def draft
+  end
+  def comment
+  end
+  def friend
+  end
+  def collect_dislike
+    @post = Post.find(params[:post])
+    likes = Like.where(post: @post, user: current_user)
+    likes.destroy_all
+  end
   def edit
     session[:return_to] ||= request.referer
   end
