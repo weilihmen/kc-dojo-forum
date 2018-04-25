@@ -1,0 +1,28 @@
+<% if current_user.unapproved_request.length != 0 %>
+<h5>待回覆請求</h5>
+<div class="row">
+	<% current_user.unapproved_friends.each do |f|%>
+	<div id=<%=f.id %> class="col-sm-2">
+		<%= link_to user_path(f) do%>
+			<%= image_tag(f.avatar, {alt: "image-not-found", onerror:"this.src='/avatar-nil.jpg';", class:"img-fluid img-thumbnail"}) %>
+			<p>Name: <%=f.name%></p>
+		<%end%>
+		<%= link_to "對方送出請求，答應？", approve_user_friendships_path(f), {method: :post, class:"btn btn-primary btn-xl"} %>
+		<%= link_to "忽略？", ignore_user_friendships_path(f), {method: :post, class:"btn btn-secondary btn-xl"} %>
+	</div>
+	<%end%>
+</div>
+<%end%>
+
+<h5>我的朋友</h5>
+<div class="row">
+	<% current_user.all_friends.each do |f|%>
+	<div id=<%=f.id %> class="col-sm-2">
+		<%= link_to user_path(f) do%>
+			<%= image_tag(f.avatar, {alt: "image-not-found", onerror:"this.src='/avatar-nil.jpg';", class:"img-fluid img-thumbnail"}) %>
+			<p>Name: <%=f.name%></p>
+		<%end%>
+		<%= link_to "取消朋友", user_friendship_path(f), {method: :delete, class:"btn btn-secondary btn-xl"} %>
+	</div>
+	<%end%>
+</div>

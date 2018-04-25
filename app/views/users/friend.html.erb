@@ -17,3 +17,9 @@
     <%= link_to "Friend", friend_user_path(@user), class: "nav-link active"%>
   </li>
 </ul>
+
+<% if @user==current_user %>
+  <%= render partial: "auth_user_friends"%>
+<%else%>
+  <%= render partial: "single_user_friends" %>
+<%end%>

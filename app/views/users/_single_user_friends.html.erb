@@ -1,0 +1,11 @@
+<h5>我的朋友</h5>
+<div class="row">
+	<% @user.all_friends.each do |f|%>
+	<div id=<%=f.id %> class="col-sm-2">
+		<%= link_to user_path(f) do%>
+			<%= image_tag(f.avatar, {alt: "image-not-found", onerror:"this.src='/avatar-nil.jpg';", class:"img-fluid img-thumbnail"}) %>
+			<p>Name: <%=f.name%></p>
+		<%end%>
+	</div>
+	<%end%>
+</div>

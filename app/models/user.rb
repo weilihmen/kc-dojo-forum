@@ -18,7 +18,7 @@ class User < ApplicationRecord
 
   #unapproved=> 收到要求，自己尚未回應
   has_many :unapproved_request, -> {where status: "pending"}, class_name:"Friendship", foreign_key:"friend_id"
-  has_many :unapproved_friends, through: :pending_request, source: :user
+  has_many :unapproved_friends, through: :unapproved_request, source: :user
 
   has_many :direct_friendships, -> {where status: "approved"}, class_name:"Friendship"
   has_many :direct_friends, through: :direct_friendships, source: :friend
