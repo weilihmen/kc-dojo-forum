@@ -3,6 +3,13 @@ Rails.application.routes.draw do
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :users, only: [:show, :edit, :update] do
+    resources :friendships, only: [:create, :destroy] do
+      collection do 
+        post :approve
+        post :ignore
+        post :unignore
+      end
+    end
 	  member do
 	  	get :post
       get :collect
