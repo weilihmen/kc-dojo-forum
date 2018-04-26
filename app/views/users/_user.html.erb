@@ -6,19 +6,21 @@
 
 <%if not @user==current_user %>
 	<%if current_user.all_friends.include?(@user) %>
-		<%= link_to "取消朋友", user_friendship_path(@user), {method: :delete, class:"btn btn-secondary btn-xl"} %>
+		<p style="display: inline-block;">(你們已經是朋友)  </p>
+		<%= link_to "取消朋友", user_friendship_path(@user), {method: :delete, class:"btn btn-secondary btn-sm"} %>
   <%else%>
 
 		<%if current_user.pending_request.exists?(:friend_id => @user.id) %>
 			<p>(已送出好友邀請，等待回覆)</p>
 		<%elsif current_user.unapproved_request.exists?(:user_id => @user.id, :ignore => false)%>
-			<%= link_to "對方送出請求，答應？", approve_user_friendships_path(@user), {method: :post, class:"btn btn-primary btn-xl"} %>
+			<p style="display: inline-block;"><%=@user.name%>邀請您成為他的朋友</p>
+			<%= link_to "答應？", approve_user_friendships_path(@user), {method: :post, class:"btn btn-primary btn-xl"} %>
 			<%= link_to "忽略？", ignore_user_friendships_path(@user), {method: :post, class:"btn btn-secondary btn-xl"} %>
 		<%elsif current_user.unapproved_request.exists?(:user_id => @user.id, :ignore => true)%>
 			<p style="display: inline-block;">(已忽略對方的好友邀請)  </p>
 			<%= link_to "取消忽略？", unignore_user_friendships_path(@user), {method: :post, class:"btn btn-outline-secondary btn-sm"} %>
 		<%else%>
-			<%= link_to "邀請成為好友", user_friendships_path(@user), {method: :post, class:"btn btn-primary btn-xl"} %>
+			<%= link_to "邀請#{@user.name}成為你的好友", user_friendships_path(@user), {method: :post, class:"btn btn-primary btn-xl"} %>
 		<%end%>
 
   <%end%>

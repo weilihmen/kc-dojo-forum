@@ -3,6 +3,5 @@
 			<%= image_tag(f.avatar, {alt: "image-not-found", onerror:"this.src='/avatar-nil.jpg';", class:"img-fluid img-thumbnail"}) %>
 			<p>Name: <%=f.name%></p>
 		<%end%>
-		<%= link_to "對方送出請求，答應？", approve_user_friendships_path(f, ajax_source:"tab"), {remote:true, method: :post, class:"btn btn-primary btn-xl"} %>
-		<%= link_to "忽略？", ignore_user_friendships_path(f, ajax_source:"tab"), {remote:true, method: :post, class:"btn btn-secondary btn-xl"} %>
+		<%= link_to "取消朋友", user_friendship_path(f, ajax_source:"tab"), {remote:true, method: :delete, class:"btn btn-secondary btn-xl"} %>
 	</div>
