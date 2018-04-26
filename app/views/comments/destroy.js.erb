@@ -1,0 +1,9 @@
+$("#tr-<%= @comment.id %>").remove();
+$("#<%= @comment.id %>").remove();
+var $alert = $("<div class=\"noti-aler-js noti-aler-wrapper alert notice-dismissible\"><button type=\"button\" class=\"close\" data-dismiss=\"notice\" aria-label=\"Close\"><span aria-hidden=\"true\">\&times\;</span></button><p>刪除成功</p></div>");
+$('body').append($alert);
+setTimeout(function(){
+  $('.noti-aler-js').fadeOut('slow',function(){
+    $(this).remove();
+  });
+}, 4000);

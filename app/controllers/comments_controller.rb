@@ -18,7 +18,6 @@ class CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
-    redirect_to post_path(Post.find(params[:post_id])), alert: "刪除成功"
   end
 
   def edit
