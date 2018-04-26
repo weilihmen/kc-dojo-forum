@@ -1,0 +1,20 @@
+
+<h5>待回覆請求</h5>
+<div id="unapproved_friends" class="row">
+<% if current_user.unapproved_request.length != 0 %>
+	<% current_user.unapproved_request.each do |f|%>
+		<% if f.ignore == false %>
+			<%= render partial: "shared/unapproved_friend_block", locals: {f: f.user}%>
+		<% end %>
+	<%end%>
+<%end%>
+</div>
+
+<h5>我的朋友</h5>
+<div id="approved_friends" class="row">
+<% if current_user.all_friends.length != 0 %>
+	<% current_user.all_friends.each do |f|%>
+	<%= render partial: "shared/approved_friend_block", locals: {f: f}%>
+	<%end%>
+<%end%>
+</div>

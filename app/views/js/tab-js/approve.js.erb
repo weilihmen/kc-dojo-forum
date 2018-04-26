@@ -1,0 +1,12 @@
+alert("Hello! I am an alert box!!");
+$("#<%= @friend.id %>").remove();
+<% html = j( render :partial => "approved_friend_block", :locals =>{f: @friend} ) %>
+$("#approved_friends").append("<%= html %>");
+$("#approved_friends_p").remove();
+var $alert = $("<div class=\"noti-aler-js noti-aler-wrapper notice notice-dismissible\"><button type=\"button\" class=\"close\" data-dismiss=\"notice\" aria-label=\"Close\"><span aria-hidden=\"true\">\&times\;</span></button><p>成功回覆</p></div>");
+$('body').append($alert);
+setTimeout(function(){
+  $('.noti-aler-js').fadeOut('slow',function(){
+    $(this).remove();
+  });
+}, 4000);

@@ -19,7 +19,7 @@
 </ul>
 
 <% if @user==current_user %>
-  <%= render partial: "auth_user_friends"%>
+  <%= render partial: "shared/user_friend_tab_auth"%>
 <%else%>
-  <%= render partial: "single_user_friends" %>
+  <%= render partial: "shared/user_friend_tab_unauth" %>
 <%end%>
