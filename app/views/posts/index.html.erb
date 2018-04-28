@@ -1,12 +1,20 @@
-<h1>POST INDEX</h1>
+<h1>文章總表</h1>
 
-<div>
-	<button>
-		<%= link_to '新增',new_post_path %>
-	</button>
-</div>
+<% if current_user %>
+	<%= link_to '新增文章',new_post_path, class: "btn btn-info btn-xl" %>
+<%end%>
 <br>
-<p>(點選表頭可以做排序)</p>
+<br>
+<%= search_form_for @q do |f| %>
+  <% Category.all.each do |c| %>
+     <%= check_box_tag('q[categories_id_eq_any][]', c.id ) %>
+     <%= c.name %>
+  <% end %>
+  <%= f.submit "篩選" %>
+  <%= button_to "重設", posts_path%>
+<% end %>
+<p>(&uarr;點選分類做篩選)</p>
+<p>(&darr;點選表頭可以做排序)</p>
 <table class="table table-striped table-bordered">
 	<thead>
 		<tr>

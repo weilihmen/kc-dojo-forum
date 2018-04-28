@@ -7,7 +7,7 @@ class PostsController < ApplicationController
     #https://stackoverflow.com/questions/14437009/ordering-a-results-set-with-pagination-using-will-paginate
     #https://github.com/activerecord-hackery/ransack
     @q =  Post.all.order(created_at: :desc).search(params[:q])
-    @posts = @q.result.includes(:user).paginate(:page => params[:page], :per_page => 20)
+    @posts = @q.result(distinct: true).includes(:user).paginate(:page => params[:page], :per_page => 20)
 	end
 
 	def new
