@@ -4,7 +4,10 @@ class PostsController < ApplicationController
   before_action :auth_user, only: [:edit, :update, :destroy]
 
 	def index
-		@posts=Post.where.not(status: "pending")
+    #https://stackoverflow.com/questions/14437009/ordering-a-results-set-with-pagination-using-will-paginate
+    #https://github.com/activerecord-hackery/ransack
+    @q =  Post.search(params[:q])
+    @posts = @q.result.paginate(:page => params[:page], :per_page => 20)
 	end
 
 	def new

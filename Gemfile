@@ -62,3 +62,8 @@ gem 'jquery-rails'
 gem "font-awesome-rails"
 #upload image
 gem 'carrierwave'
+
+#首頁的分頁與排序
+gem "ransack"
+gem "will_paginate"
+gem 'will_paginate-bootstrap4'
