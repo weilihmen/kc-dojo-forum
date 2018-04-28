@@ -2,6 +2,7 @@ class PostsController < ApplicationController
   skip_before_action :authenticate_user!, :only => [:index]
   before_action :set_post, only: [:edit, :show, :update, :destroy, :like, :unlike]
   before_action :auth_user, only: [:edit, :update, :destroy]
+  impressionist :actions=>[:show]
 
 	def index
     #https://stackoverflow.com/questions/14437009/ordering-a-results-set-with-pagination-using-will-paginate
@@ -22,6 +23,7 @@ class PostsController < ApplicationController
   end
 
   def show
+    impressionist(@post)
     @comments = @post.comments.order(created_at: :desc).paginate(:page => params[:page], :per_page => 20)
     @comment = Comment.new
     session[:return_to_c] ||= request.referer

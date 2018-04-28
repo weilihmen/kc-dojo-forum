@@ -6,6 +6,7 @@
 <br>
 <br>
 <%= search_form_for @q do |f| %>
+	<% #https://stackoverflow.com/questions/17842075/check-boxes-search-with-ransack-gem?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa %>
   <% Category.all.each do |c| %>
      <%= check_box_tag('q[categories_id_eq_any][]', c.id ) %>
      <%= c.name %>

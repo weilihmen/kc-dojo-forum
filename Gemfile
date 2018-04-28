@@ -67,3 +67,6 @@ gem 'carrierwave'
 gem "ransack"
 gem "will_paginate"
 gem 'will_paginate-bootstrap4'
+
+#瀏覽數計算
+gem 'impressionist'
