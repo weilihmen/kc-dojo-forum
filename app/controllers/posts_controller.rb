@@ -7,8 +7,8 @@ class PostsController < ApplicationController
 	def index
     #https://stackoverflow.com/questions/14437009/ordering-a-results-set-with-pagination-using-will-paginate
     #https://github.com/activerecord-hackery/ransack
-    @q =  Post.all.order(created_at: :desc).search(params[:q])
-    @posts = @q.result(distinct: true).includes(:user).paginate(:page => params[:page], :per_page => 20)
+    @q =  Post.all.order(id: :desc).search(params[:q])
+    @posts = @q.result(distinct: true).includes(:user, :impressions).paginate(:page => params[:page], :per_page => 20)
 	end
 
 	def new
@@ -24,6 +24,7 @@ class PostsController < ApplicationController
 
   def show
     impressionist(@post)
+    @post.update(view_count: @post.impressionist_count(:filter=>:session_hash))
     @comments = @post.comments.order(created_at: :desc).paginate(:page => params[:page], :per_page => 20)
     @comment = Comment.new
     session[:return_to_c] ||= request.referer

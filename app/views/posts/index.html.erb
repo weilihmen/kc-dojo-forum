@@ -23,7 +23,7 @@
 			<th><%= sort_link @q, :user_name, "作者"%></th>
 			<th><%= sort_link @q, :created_at, "建立時間"%></th>
 			<th><%= sort_link @q, :comments_count, "回覆數", default_order: :desc%></th>
-			<th>瀏覽數</th>
+			<th><%= sort_link @q, :view_count, "瀏覽數", default_order: :desc%></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -33,7 +33,7 @@
 			<td><%= link_to p.user.name, user_path(p.user) %></td>
 			<td><%= p.created_at.strftime("%Y/%m/%d %H:%M")%></td>
 			<td><%= p.comments_count%></td>
-			<td></td>
+			<td><%= p.view_count%></td>
 		</tr>
 	</tbody>
 	<%end%>
