@@ -36,3 +36,34 @@
 .notice p{
   margin-top: 13px;
 }
+
+/**/
+
+.comment-avatar{
+  height: 49px;
+  margin: -12px 0 -12px -12px;
+}
+
+.comment-action-block{
+  
+}
+
+.comment-action{
+  display: inline-block;
+  margin-left: 4px;
+}
+
+.post-show-avatar{
+  height: 80px;
+  padding-bottom: 20px;
+}
+
+/* utilities */
+
+.pull-right{
+  margin-left: auto !important;
+}
+
+.pull-left{
+  margin-right: auto !important;
+}
