@@ -59,8 +59,9 @@
 			<td>
 				<%= link_to user_path(c.user) do%>
 					<%= image_tag(c.user.avatar, {alt: "image-not-found", onerror:"this.src='/avatar-nil.jpg';", class:"comment-avatar"}) %>
-					<%= c.user.name%> (<%=time_ago_in_words c.updated_at %> ago)
+					<%= c.user.name%>
 				<%end%>
+				(<%=time_ago_in_words c.updated_at %> ago)
 				<% if current_user == c.user %>
 				<div class="comment-action-block pull-right">
 				<%= link_to "Edit", edit_post_comment_path(@post, c), remote: true, class:"btn btn-outline-secondary btn-sm comment-action" %>

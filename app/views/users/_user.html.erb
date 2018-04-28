@@ -1,27 +1,35 @@
-<h1>User Show</h1>
-<p>Email: <%=@user.email%></p>
-<p>Name: <%=@user.name%></p>
-<%= image_tag @user.avatar ,width:'300px' if @user.avatar? %>
-<p>Intro: <%=@user.intro%></p>
+<h1><%=@user.name%></h1>
 
+<div class="row">
+	<div class="col-md-4 text-center">
+		<%= image_tag(@user.avatar, {alt: "image-not-found", onerror:"this.src='/avatar-nil.jpg';", class:"img-fluid img-thumbnail user-show-avatar"}) %>
+	</div>
+	<div class="col-md-8">
+		<p>Intro: <%=@user.intro%></p>
+	</div>
+</div>
+<div style="height: 20px;"></div>
 <%if not @user==current_user %>
 	<%if current_user.all_friends.include?(@user) %>
-		<p style="display: inline-block;">(你們已經是朋友)  </p>
+		<p style="margin-bottom: 4px;">關係：(你們已經是朋友)  </p>
 		<%= link_to "取消朋友", user_friendship_path(@user), {method: :delete, class:"btn btn-secondary btn-sm"} %>
   <%else%>
-
 		<%if current_user.pending_request.exists?(:friend_id => @user.id) %>
-			<p>(已送出好友邀請，等待回覆)</p>
+			<p style="margin-bottom: 4px;">關係：(您已送出好友邀請，等待回覆)</p>
+			<%= link_to "收回邀請", user_friendship_path(@user), {method: :delete, class:"btn btn-secondary btn-sm"} %>
 		<%elsif current_user.unapproved_request.exists?(:user_id => @user.id, :ignore => false)%>
-			<p style="display: inline-block;"><%=@user.name%>邀請您成為他的朋友</p>
-			<%= link_to "答應？", approve_user_friendships_path(@user), {method: :post, class:"btn btn-primary btn-xl"} %>
-			<%= link_to "忽略？", ignore_user_friendships_path(@user), {method: :post, class:"btn btn-secondary btn-xl"} %>
+			<p style="margin-bottom: 4px;">關係：<%=@user.name%>邀請您成為他的朋友</p>
+			<%= link_to "答應？", approve_user_friendships_path(@user), {method: :post, class:"btn btn-primary btn-sm"} %>
+			<%= link_to "忽略？", ignore_user_friendships_path(@user), {method: :post, class:"btn btn-secondary btn-sm"} %>
 		<%elsif current_user.unapproved_request.exists?(:user_id => @user.id, :ignore => true)%>
-			<p style="display: inline-block;">(已忽略對方的好友邀請)  </p>
-			<%= link_to "取消忽略？", unignore_user_friendships_path(@user), {method: :post, class:"btn btn-outline-secondary btn-sm"} %>
+			<p style="margin-bottom: 4px;">關係：(您已忽略 <%=@user.name%>的好友邀請)  </p>
+			<%= link_to "取消忽略？", unignore_user_friendships_path(@user), {method: :post, class:"btn btn-secondary btn-sm"} %>
 		<%else%>
-			<%= link_to "邀請#{@user.name}成為你的好友", user_friendships_path(@user), {method: :post, class:"btn btn-primary btn-xl"} %>
+			<p style="margin-bottom: 4px;">關係：(你們不是好友)</p>
+			<%= link_to "邀請#{@user.name}成為好友", user_friendships_path(@user), {method: :post, class:"btn btn-primary btn-xl"} %>
 		<%end%>
-
   <%end%>
+<%else%>
+	<%= link_to "編輯個人資料", edit_user_path(current_user), {class:"btn btn-outline-secondary btn-xl"} %>
 <%end%>
+<div style="height: 20px;"></div>

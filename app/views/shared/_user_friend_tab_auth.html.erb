@@ -1,3 +1,13 @@
+<h5 style="padding-top: 20px;">已送出請求</h5>
+<div id="pending_friends" class="row">
+<% if current_user.pending_request.length != 0 %>
+	<% current_user.pending_request.each do |f|%>
+			<%= render partial: "shared/pending_friend_block", locals: {f: f.friend}%>
+	<%end%>
+<%end%>
+</div>
+
+<hr>
 
 <h5>待回覆請求</h5>
 <div id="unapproved_friends" class="row">
@@ -9,6 +19,8 @@
 	<%end%>
 <%end%>
 </div>
+
+<hr>
 
 <h5>我的朋友</h5>
 <div id="approved_friends" class="row">

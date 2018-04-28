@@ -23,7 +23,9 @@
 		<tr>
 			<th>title</th>
 			<th>created_at</th>
-			<th>action</th>
+      <%if @user==current_user %>
+			 <th>action</th>
+      <%end%>
 		</tr>
 	</thead>
 	<tbody>
@@ -31,11 +33,21 @@
 		<tr>
 			<td><%= link_to p.title, post_path(p) %></td>
 			<td><%= p.created_at.strftime("%Y/%m/%d %H:%M")%></td>
-			<td>
-				<%= link_to 'Edit', edit_post_path(p) %>
-        <%= link_to 'Delete', post_path(p), method: :delete, data: { confirm: "Are you sure?"} %>
-      </td>
+      <%if @user==current_user %>
+  			<td>
+  				<%= link_to 'Edit', edit_post_path(p) %>
+          <%= link_to 'Delete', post_path(p), method: :delete, data: { confirm: "Are you sure?"} %>
+        </td>
+      <%end%>
 		</tr>
 	</tbody>
 	<%end%>
 </table>
+
+<div style="height: 20px"></div>
+
+<%if @user==current_user %>
+  <%= link_to '新增文章',new_post_path, class: "btn btn-info btn-xl" %>
+<%end%>
+
+<div style="height: 20px"></div>

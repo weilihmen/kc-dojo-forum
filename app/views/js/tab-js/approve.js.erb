@@ -1,4 +1,3 @@
-alert("Hello! I am an alert box!!");
 $("#<%= @friend.id %>").remove();
 <% html = j( render :partial => "approved_friend_block", :locals =>{f: @friend} ) %>
 $("#approved_friends").append("<%= html %>");

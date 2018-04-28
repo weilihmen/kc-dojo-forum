@@ -58,6 +58,11 @@
   padding-bottom: 20px;
 }
 
+/**/
+.user-show-avatar{
+  max-width: 250px;
+}
+
 /* utilities */
 
 .pull-right{
