@@ -11,7 +11,7 @@
 	<thead>
 		<tr>
 			<th><%= sort_link @q, :title%></th>
-			<th>author</th>
+			<th><%= sort_link @q, :user_name, "author"%></th>
 			<th><%= sort_link @q, :created_at%></th>
 			<th>action</th>
 		</tr>
