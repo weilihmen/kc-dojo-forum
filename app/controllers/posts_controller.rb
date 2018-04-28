@@ -22,8 +22,9 @@ class PostsController < ApplicationController
   end
 
   def show
-    @comments = @post.comments.paginate(:page => params[:page], :per_page => 20)
+    @comments = @post.comments.order(created_at: :desc).paginate(:page => params[:page], :per_page => 20)
     @comment = Comment.new
+    session[:return_to_c] ||= request.referer
   end
 
 	def create
@@ -51,7 +52,7 @@ class PostsController < ApplicationController
   def destroy
     if @post.destroy
       flash[:notice] = "刪除成功"
-      redirect_back(fallback_location: root_path)
+      redirect_to session.delete(:return_to_c)
     else
       flash.now[:alert] = "刪除失敗"
     end
