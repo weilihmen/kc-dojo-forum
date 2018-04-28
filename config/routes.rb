@@ -27,4 +27,13 @@ Rails.application.routes.draw do
     end
   end
 	get "/feeds", to: "feeds#index"
+  namespace :admin do
+    resources :posts, only: [:index, :destroy]
+    resources :categories, except: [:show]
+    resources :users, except: [:show] do
+      post :auth
+      post :unauth
+    end
+    root "posts#index"
+  end
 end
