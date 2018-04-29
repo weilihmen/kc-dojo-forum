@@ -16,19 +16,35 @@
   </div>
 
   <div class="form-group">
-    <%= p.label :categories, "文章類別" %><br />
+    <b><%= p.label :categories, "文章類別" %></b><br />
+    <div style="padding-left: 12px;">
     <% for c in Category.all %>
       <%= check_box_tag "post[category_ids][]", c.id, @post.categories.include?(c) %>
       <%=h c.name %><br />
     <% end %>
+    </div>
   </div>
 
   <div class="form-group">
-    <%= p.label :status, "草稿或發布" %><br />
+    <b><%= p.label :status, "草稿或發布" %></b><br />
+    <div style="padding-left: 12px;">
     <%= p.label :status_pending, "草稿" %>
     <%= p.radio_button(:status, "pending", options = {checked: "checked"})  %> <br>
     <%= p.label :status_publish, "發布" %>
     <%= p.radio_button(:status, "publish")  %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <b><%= p.label :accessible, "開放權限設定" %></b><br />
+    <div style="padding-left: 12px;">
+    <%= p.label :accessible_all, "對所有人開放" %>
+    <%= p.radio_button(:accessible, "all", options = {checked: "checked"})  %> <br>
+    <%= p.label :accessible_friend, "只對好友開放" %>
+    <%= p.radio_button(:accessible, "friend")  %> <br>
+    <%= p.label :accessible_self, "只對自己開放" %>
+    <%= p.radio_button(:accessible, "self")  %>
+    </div>
   </div>
 
   <%= p.submit %>

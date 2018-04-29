@@ -2,6 +2,7 @@ class PostsController < ApplicationController
   skip_before_action :authenticate_user!, :only => [:index]
   before_action :set_post, only: [:edit, :show, :update, :destroy, :like, :unlike]
   before_action :auth_user, only: [:edit, :update, :destroy]
+  before_action :accessible_user, only: [:show, :edit, :update, :destroy, :like, :unlike]
   impressionist :actions=>[:show]
 
 	def index
@@ -73,7 +74,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :content, :image, :status, category_ids: [])
+    params.require(:post).permit(:title, :content, :image, :status, :accessible, category_ids: [])
     #https://stackoverflow.com/questions/4425176/in-rails-how-to-handle-multiple-checked-checkboxes-just-split-on-the-or
   end
 
@@ -84,6 +85,12 @@ class PostsController < ApplicationController
   def auth_user
     @user = @post.user
     if @user != current_user
+      redirect_back fallback_location: root_path, alert: "你沒有權限喔！"
+    end
+  end
+
+  def accessible_user
+    if @post.accessible?(current_user) == false
       redirect_back fallback_location: root_path, alert: "你沒有權限喔！"
     end
   end

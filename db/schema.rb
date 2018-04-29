@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180429081542) do
+ActiveRecord::Schema.define(version: 20180429123840) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 20180429081542) do
     t.integer "user_id"
     t.integer "comments_count"
     t.integer "view_count", default: 0
+    t.string "accessible", default: "all"
   end
 
   create_table "users", force: :cascade do |t|

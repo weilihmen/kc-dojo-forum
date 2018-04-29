@@ -30,7 +30,7 @@ class User < ApplicationRecord
   before_create :generate_authentication_token
 
 
-  def all_friends #這個有問題
+  def all_friends
     all_friends = self.direct_friends+self.inverse_friends
     return all_friends
   end
