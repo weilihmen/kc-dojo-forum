@@ -1,0 +1,52 @@
+<h2>後台-分類總表</h2>
+
+<div style="height: 20px;"></div>
+
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <%= link_to "文章總表", admin_posts_path, class: "nav-link"%>
+  </li>
+  <li class="nav-item">
+    <%= link_to "分類總表", admin_categories_path, class: "nav-link active"%>
+  </li>
+  <li class="nav-item">
+    <%= link_to "使用者總表", admin_users_path, class: "nav-link"%>
+  </li>
+</ul>
+
+<div style="height: 20px;"></div>
+
+<%= form_for [:admin, @category] do |f| %>
+  <div class="form-group">
+    <%= f.text_field :name, placeholder: "Category Name",  class: "form-control", style: "width:250px; display:inline-block;" %>
+    <%= f.submit class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<div style="height: 20px;"></div>
+
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Category Name</th>
+      <th>Posts size</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @categories.each do |category| %>
+    <tr>
+      <th scope="row"><%= category.id %></th>
+      <td><%= category.name %></td>
+      <td><%= category.posts.length %></td>
+      <td>
+        <%= link_to 'Edit', admin_categories_path(id: category.id) %>
+        <%= link_to 'Delete', admin_category_path(category), method: :delete, data: { confirm: "Are you sure?"} %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
