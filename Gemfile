@@ -70,3 +70,6 @@ gem 'will_paginate-bootstrap4'
 
 #瀏覽數計算
 gem 'impressionist'
+
+#假資料產生
+gem 'ffaker'
