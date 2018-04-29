@@ -20,8 +20,8 @@
 	<thead>
 		<tr>
 			<th>標題</th>
-			<th>作者</th>
 			<th><%= sort_link @q, :created_at, "建立時間"%></th>
+			<th><%= sort_link @q, :last_comment_at, "最後回覆"%></th>
 			<th><%= sort_link @q, :comments_count, "回覆數", default_order: :desc%></th>
 			<th><%= sort_link @q, :view_count, "瀏覽數", default_order: :desc%></th>
 			<th>分類</th>
@@ -32,8 +32,8 @@
     <%if p.accessible?(current_user) == true && p.status == "publish" %>
 			<tr>
 				<td><%= link_to p.title, post_path(p) %></td>
-				<td><%= link_to p.user.name, user_path(p.user) %></td>
-				<td><%= p.created_at.strftime("%Y/%m/%d %H:%M")%></td>
+				<td><%= p.created_at.strftime("%m/%d %H:%M")%></td>
+				<td><%= p.last_comment_at.strftime("%m/%d %H:%M") if p.last_comment_at%></td>
 				<td><%= p.comments_count%></td>
 				<td><%= p.view_count%></td>
 				<td>
