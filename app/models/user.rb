@@ -26,6 +26,9 @@ class User < ApplicationRecord
   has_many :inverse_friendships, -> {where status: "approved"}, class_name:"Friendship", foreign_key:"friend_id"
   has_many :inverse_friends, through: :inverse_friendships, source: :user
 
+  #API登入驗證
+  before_create :generate_authentication_token
+
 
   def all_friends #這個有問題
     all_friends = self.direct_friends+self.inverse_friends
@@ -33,5 +36,9 @@ class User < ApplicationRecord
   end
   def admin?
     self.role == "admin"
+  end
+
+  def generate_authentication_token
+     self.authentication_token = Devise.friendly_token
   end
 end
