@@ -19,8 +19,8 @@
 <table class="table table-striped table-bordered">
 	<thead>
 		<tr>
-			<th><%= sort_link @q, :title, "標題"%></th>
-			<th><%= sort_link @q, :user_name, "作者"%></th>
+			<th>標題</th>
+			<th>作者</th>
 			<th><%= sort_link @q, :created_at, "建立時間"%></th>
 			<th><%= sort_link @q, :comments_count, "回覆數", default_order: :desc%></th>
 			<th><%= sort_link @q, :view_count, "瀏覽數", default_order: :desc%></th>
