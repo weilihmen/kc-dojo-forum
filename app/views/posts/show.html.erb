@@ -1,4 +1,14 @@
 <h1><%= @post.title %></h1>
+<%if @post.categories.length != 0%>
+	<div>
+		<h5>
+			<% @post.categories.each do |c| %>
+				<span class="badge badge-success"><%= "#{c.name} " %></span>
+			<%end%>
+		</h5>
+	</div>
+<%end%>
+
 
 <%= link_to user_path(@post.user) do%>
 	<%= image_tag(@post.user.avatar, {alt: "image-not-found", onerror:"this.src='/avatar-nil.jpg';", class:"post-show-avatar"}) %>
@@ -15,6 +25,9 @@
 		<%else %>
 		<%= link_to "喜歡！", like_post_path(@post), {remote: true, method: :post, class:"btn btn-info btn-xl", id:"unlike-btn"} %>
 		<%end%>
+	<%end%>
+	<%if current_user.admin? %>
+		<%= link_to "刪除(admin)", admin_post_path(@post), method: :delete, data: { confirm: "Are you sure?"}, class:"btn btn-outline-danger btn-sm" %>
 	<%end%>
 </div>
 <table class="table table-striped table-bordered">
