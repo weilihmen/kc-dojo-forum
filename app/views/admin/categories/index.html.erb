@@ -41,8 +41,8 @@
       <td><%= category.name %></td>
       <td><%= category.posts.length %></td>
       <td>
-        <%= link_to 'Edit', admin_categories_path(id: category.id) %>
-        <%= link_to 'Delete', admin_category_path(category), method: :delete, data: { confirm: "Are you sure?"} %>
+        <%= link_to 'Edit', admin_categories_path(id: category.id), class:"btn btn-outline-secondary btn-sm" %>
+        <%= link_to 'Delete', admin_category_path(category), method: :delete, data: { confirm: "Are you sure?"}, class:"btn btn-outline-secondary btn-sm" %>
       </td>
     </tr>
     <% end %>
