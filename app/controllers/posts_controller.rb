@@ -3,12 +3,13 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:edit, :show, :update, :destroy, :like, :unlike]
   before_action :auth_user, only: [:edit, :update, :destroy]
   before_action :accessible_user, only: [:show, :edit, :update, :destroy, :like, :unlike]
+  before_action :publish_status, only: [:show]
   impressionist :actions=>[:show]
 
 	def index
     #https://stackoverflow.com/questions/14437009/ordering-a-results-set-with-pagination-using-will-paginate
     #https://github.com/activerecord-hackery/ransack
-    @q =  Post.all.order(id: :desc).search(params[:q])
+    @q =  Post.all.where(status: "publish").order(id: :desc).search(params[:q])
     @posts = @q.result(distinct: true).includes(:user, :impressions).paginate(:page => params[:page], :per_page => 20)
 	end
 
@@ -86,6 +87,12 @@ class PostsController < ApplicationController
     @user = @post.user
     if @user != current_user
       redirect_back fallback_location: root_path, alert: "你沒有權限喔！"
+    end
+  end
+
+  def publish_status
+    if @post.status == "pending"
+      redirect_back fallback_location: root_path, alert: "草稿狀態禁止進入"
     end
   end
 

@@ -29,7 +29,7 @@
 	</thead>
 	<tbody>
     <% @posts.each do |p| %>
-    <%if p.accessible?(current_user) == true %>
+    <%if p.accessible?(current_user) == true && p.status == "publish" %>
 			<tr>
 				<td><%= link_to p.title, post_path(p) %></td>
 				<td><%= link_to p.user.name, user_path(p.user) %></td>
