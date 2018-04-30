@@ -1,24 +1,41 @@
 class Api::V1::PostsController < ApiController
 	before_action :authenticate_user_from_token!
 	before_action :authenticate_user!, except: [:index, :login]
+  before_action :set_post, only: [:show, :update, :destroy]
+  before_action :accessible_user, only: [:show, :update, :destroy]
 	
 	def index
-    @posts = Post.all
+    if current_user
+      @posts = Post.all.where(status: "publish")
+    else
+      @posts = Post.all.where(status: "publish", accessible: "all")
+    end
     render json: {
       data: @posts.map do |p|
-        {
-          title: p.title,
-          author: p.user.name,
-          created_at: p.created_at.strftime("%Y/%m/%d %H:%M"),
-          comments_count: p.comments_count,
-          view_count: p.view_count
-         }
+        if current_user
+          if p.accessible?(current_user)
+            {
+              title: p.title,
+              author: p.user.name,
+              created_at: p.created_at.strftime("%Y/%m/%d %H:%M"),
+              comments_count: p.comments_count,
+              view_count: p.view_count
+            }
+          end
+        else
+          {
+            title: p.title,
+            author: p.user.name,
+            created_at: p.created_at.strftime("%Y/%m/%d %H:%M"),
+            comments_count: p.comments_count,
+            view_count: p.view_count
+          }
+        end
       end
     }
   end
 
   def show
-    @post = Post.find_by(id: params[:id])
     if !@post
       render json: {
         message: "資料錯誤",
@@ -49,7 +66,6 @@ class Api::V1::PostsController < ApiController
   end
 
   def update
-    @post = Post.find_by(id: params[:id])
     if @post.user==current_user && @post.update(post_params)
       render json: {
         message: "更新成功",
@@ -63,7 +79,6 @@ class Api::V1::PostsController < ApiController
   end
 
   def destroy
-    @post = Post.find_by(id: params[:id])
     if @post.user==current_user && @post.destroy
       render json: {
         message: "刪除成功"
@@ -99,6 +114,16 @@ class Api::V1::PostsController < ApiController
 
   def post_params
     params.permit(:title, :content, :image, :status, category_ids: [])
+  end
+
+  def set_post
+    @post = Post.find(params[:id])
+  end
+
+  def accessible_user
+    if @post.accessible?(current_user) == false
+      render json: { message:  "你沒有權限喔！" }, status:  401
+    end
   end
 
   def authenticate_user_from_token!
