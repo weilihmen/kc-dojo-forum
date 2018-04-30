@@ -9,7 +9,22 @@ class PostsController < ApplicationController
 	def index
     #https://stackoverflow.com/questions/14437009/ordering-a-results-set-with-pagination-using-will-paginate
     #https://github.com/activerecord-hackery/ransack
-    @q =  Post.all.where(status: "publish").order(id: :desc).search(params[:q])
+    if current_user
+      post_all_ids = []
+      Post.all.where(status: "publish", accessible: "all").each { |p| post_all_ids << p.id}
+      post_friend_ids = []
+      Post.all.where(status: "publish", accessible: "friend").each { |p| post_friend_ids << p.id if p.accessible?(current_user) }
+      puts "post_friend_ids #{post_friend_ids}"
+      post_self_ids = []
+      Post.all.where(status: "publish", accessible: "self").each { |p| post_self_ids << p.id if p.user == current_user }
+      puts "post_self_ids #{post_self_ids}"
+      posts_ids = post_all_ids + post_friend_ids + post_self_ids 
+      posts = Post.where('id in (?)', posts_ids)
+      puts "posts #{posts.all}"
+      @q = posts.order(id: :desc).search(params[:q])
+    else
+      @q = Post.all.where(status: "publish", accessible: "all").order(id: :desc).search(params[:q])
+    end
     @posts = @q.result(distinct: true).paginate(:page => params[:page], :per_page => 20)
 	end
 

@@ -29,7 +29,6 @@
 	</thead>
 	<tbody>
     <% @posts.each do |p| %>
-    <%if p.accessible?(current_user) == true && p.status == "publish" %>
 			<tr>
 				<td><%= link_to p.title, post_path(p) %></td>
 				<td><%= p.created_at.strftime("%m/%d %H:%M")%></td>
@@ -46,7 +45,6 @@
 			</tr>
 		<%end%>
 	</tbody>
-	<%end%>
 </table>
 
 <%= will_paginate @posts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
